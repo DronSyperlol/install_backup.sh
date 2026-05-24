@@ -30,11 +30,11 @@ case "$AUTH_METHOD" in
 		            exit 1
 		        }
 		        DEFAULT_SSH_KEY="$WORKDIR/.ssh/id_ed25519"
-				read -rp "Remote source file [$DEFAULT_SSH_KEY]: " SSH_KEY
+				read -rp "Where to save the new key? [$DEFAULT_SSH_KEY]: " SSH_KEY
 				SSH_KEY=${SSH_KEY:-"$DEFAULT_SSH_KEY"}
 				mkdir -p $(dirname "$SSH_KEY")
 		        ssh-keygen -t ed25519 -f "$SSH_KEY" -N ""
-		        echo "Install the newly generated public SSH key into the server's `authorized_keys` file to enable key-based authentication."
+		        echo "Install the newly generated public SSH key into the authorized_keys file of the backup-service user on the server to enable key-based authentication."
 				echo "Public key: $(cat "$SSH_KEY.pub")"
 		        read -rp "Press Enter to continue..."
         	fi
